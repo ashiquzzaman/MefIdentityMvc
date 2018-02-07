@@ -11,7 +11,9 @@ namespace AzR.Web.Root.MEF
         private List<string> _plugins = new List<string>();
         public AzRViewEngine()
         {
-            var plugins = Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins")).ToList();
+            var plugins = !Directory.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"))
+                ? Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins")).ToList()
+                : Directory.GetDirectories(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Areas")).ToList();
 
             plugins.ForEach(s =>
             {
